@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  db-postgres-financeiro:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    container_name: "db-postgres-financeiro"
+    restart: always
+    volumes:
+      - ./banco-de-dados-financeiro:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpassword
+
+volumes:
+  banco-de-dados-financeiro:
