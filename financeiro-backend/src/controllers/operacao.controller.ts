@@ -1,4 +1,4 @@
-import { getOperacoes, getOperacoesByID, deleteOperacao, updateOperacao } from "../repositories/operacao.repository";
+import { getOperacoes, getOperacoesByfundoID, deleteOperacao, updateOperacao, getOperacaofeita } from "../repositories/operacao.repository";
 
 export const getAllOperacoes = async (req, res) => {
     try{
@@ -12,10 +12,10 @@ export const getAllOperacoes = async (req, res) => {
 
 export const getUniqueOperacao = async (req,res) => {
     try{
-        const operacao = await getOperacoesByID(Number(req.params.id))
+        const operacao = await getOperacoesByfundoID(Number(req.params.fundoId))
         res.status(200).send(operacao)
     } catch (e){
-        console.log("Não foi possivel Pegar a operação")
+        console.log(e)
         res.status(400).send(e)
     }
 };
@@ -37,6 +37,16 @@ export const updateOperacaobyID = async(req,res) => {
         res.status(200).send(operacao);
     } catch (e) {
         console.error("Erro ao atualizar operação:", e);
+        res.status(400).send(e);
+    }
+}
+
+export const getConsulta = async(req,res) => {
+    try{
+        const operacao = await getOperacaofeita(Number(req.params.fundoId));
+        res.status(200).send(operacao);
+    } catch(e){
+        console.error("Erro ao realizar consulta: ", e);
         res.status(400).send(e);
     }
 }

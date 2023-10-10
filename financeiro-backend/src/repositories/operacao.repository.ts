@@ -5,13 +5,13 @@ export const getOperacoes = async () => {
     return operacoes;
 };
 
-export const getOperacoesByID = async (id) => {
-    const operacao = await prisma.operacao.findUnique({
-        where:{
-            id
-        }
-    })
-    return operacao;
+export const getOperacoesByfundoID = async (fundoId) => {
+  const operacoes = await prisma.operacao.findMany({
+      where: {
+          fundoId
+      }
+  });
+  return operacoes;
 };
 
 export const deleteOperacao = async (id) => {
@@ -39,4 +39,18 @@ export const updateOperacao = async (id, data) => {
         }
       });
     return operacaoAtualizada;
+}
+
+export const getOperacaofeita = async (fundoId) => {
+  const operacoes = await prisma.operacao.findMany({
+    where: {
+        fundoId
+    }
+  });
+
+  const somaValorCota = operacoes.reduce((soma, operacao) => soma + operacao.valorCota, 0);
+
+  console.log(`A soma dos valores de 'valorCota' para o fundo ${fundoId} é: ${somaValorCota}`);
+
+  
 }
