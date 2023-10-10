@@ -10,6 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TipoOperacao {
+  Compra
+  Venda
+}
+
 model Fundo {
           id        Int       @id @default(autoincrement())
           cnpj      String    @unique
@@ -19,12 +24,11 @@ model Fundo {
 
 model Operacao {
           id       Int    @id @default(autoincrement())
-          tipo     String // Compra ou Venda
+          tipo     TipoOperacao
           data     DateTime
           cotas    Float
           valorCota Float
           fundoId  Int
           fundo    Fundo  @relation(fields: [fundoId], references: [id])
         }
-
 
