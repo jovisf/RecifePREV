@@ -12,7 +12,7 @@ export const NavBar: React.FC = () => {
       <NavbarItems>
         <ul>
             <li className='Options'><a href="#container-acao">Compra/Venda</a></li>
-            <li className='Options'><a href="#">Consulta</a></li>
+            <li className='Options'><a href="#container-consulta">Consulta</a></li>
         </ul>
       </NavbarItems>
     </NavbarContainer>

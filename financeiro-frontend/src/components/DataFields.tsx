@@ -13,7 +13,7 @@ interface DataFieldsProps {
     const defaultDate = props.defaultValue ? props.defaultValue : dayjs(); // a data default sempre será o dia atual
     
     return (
-      <FormControl fullWidth sx={{width: '80%'}}>
+      <FormControl fullWidth sx={{width: '80%', mr:'1rem'}}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimeField
           label="Data da operação"
