@@ -15,14 +15,17 @@ export const Acao: React.FC = () => {
     };
     
     return (
-        <Box sx={{
-            display:'flex',
-            flexDirection:'column',
-            alignItems:'center',
-            backgroundColor:'white',
-            width:'100%',
-            margin:'2rem'
-        }}>
+        <Box 
+            id="container-acao" 
+            sx={{
+                display:'flex',
+                flexDirection:'column',
+                alignItems:'center',
+                backgroundColor:'white',
+                width:'100%',
+                mb:'2rem'
+        }}
+        >
             <Box component={'form'} sx={{width:'50%', mt:'2rem', backgroundColor:'#e5e8ed', padding:'2rem', display:'flex',justifyContent:'center', flexDirection:'column'}}>
                 <Typography component='h1'> Realize a sua ação</Typography>
                 <TextFields label='Cnpj'></TextFields>
