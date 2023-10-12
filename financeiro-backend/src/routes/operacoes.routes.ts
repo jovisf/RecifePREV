@@ -1,11 +1,11 @@
-import { getAllOperacoes, getUniqueOperacao, deleteOperacaoByID, updateOperacaobyID, getConsulta } from "../controllers/operacao.controller";
+import { getAllOperacoes, getUniqueOperacao, deleteOperacaoByID, updateOperacaobyID, createOperacaobyFundoID } from "../controllers/operacao.controller";
 
 const operacoesRoutes = app => {
     app.get("/operacoes", getAllOperacoes)
     app.get("/operacoes/:fundoId", getUniqueOperacao)
     app.delete("/operacoes/:id", deleteOperacaoByID)
     app.put("/operacoes/:id", updateOperacaobyID)
-    app.get("/consulta/:fundoId", getConsulta) //lembrar de fazer uma propria estrutura para consulta depois
+    app.post("/operacoes/:fundoId", createOperacaobyFundoID)
 }
 
 
