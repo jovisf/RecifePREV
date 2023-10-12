@@ -3,7 +3,6 @@ import {
   FooterContainer,
   CreditosContainer,
   RedesSociaisContainer,
-  Line,
   Icons,
 } from './styles'
 import Logos from '../../assets'

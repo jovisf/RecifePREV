@@ -4,13 +4,17 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Footer } from './pages/footer';
 import { Acao } from './pages/Acao';
+import { NavBar } from './pages/NavBar';
+import { Consulta } from './pages/Consulta';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    < Acao/>
+    <NavBar/>
+    <Acao/>
+    <Consulta/>
     <Footer />
   </React.StrictMode>
 );
