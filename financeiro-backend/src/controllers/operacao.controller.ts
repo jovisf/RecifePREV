@@ -1,4 +1,4 @@
-import { getOperacoes, getOperacoesByfundoID, deleteOperacao, updateOperacao, getOperacaofeita } from "../repositories/operacao.repository";
+import { getOperacoes, getOperacoesByfundoID, deleteOperacao, updateOperacao, addOperacaoByFundoID} from "../repositories/operacao.repository";
 
 export const getAllOperacoes = async (req, res) => {
     try{
@@ -41,12 +41,12 @@ export const updateOperacaobyID = async(req,res) => {
     }
 }
 
-export const getConsulta = async(req,res) => {
-    try{
-        const operacao = await getOperacaofeita(Number(req.params.fundoId));
+export const createOperacaobyFundoID = async(req,res) => {
+    try {
+        const operacao = await addOperacaoByFundoID(Number(req.params.fundoId), req.body)
         res.status(200).send(operacao);
-    } catch(e){
-        console.error("Erro ao realizar consulta: ", e);
+    } catch (e) {
+        console.error("Erro ao criar operação: ", e);
         res.status(400).send(e);
     }
 }
