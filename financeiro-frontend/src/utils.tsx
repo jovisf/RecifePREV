@@ -1,0 +1,1 @@
+export const addErrorIntoField = (errors: Boolean) => errors ? {error:true} : {error: false}; 
