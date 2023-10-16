@@ -18,11 +18,11 @@ export const getOperacoesByfundoID = async (fundoId) => {
 export const addOperacaoByFundoID = async (fundoId, novaOperacao) => {
   const operacaoCriada = await prisma.operacao.create({
     data: {
-      tipo: novaOperacao.tipo,
-      data: novaOperacao.data,
-      cotas: novaOperacao.cotas,
-      valorCota: novaOperacao.valorCota,
-      fundoId: novaOperacao.fundoId || fundoId,  
+        tipo: novaOperacao.tipo,
+        date: novaOperacao.date,
+        cotas: novaOperacao.cotas,
+        valorCota: novaOperacao.valorCota,
+        fundoId: novaOperacao.fundoId || fundoId,
     },
   });
   return operacaoCriada;
@@ -47,7 +47,7 @@ export const updateOperacao = async (id, data) => {
         },
         data: {
           tipo: data.tipo,
-          data: data.data,
+          date: data.data,
           cotas: data.cotas,
           valorCota: data.valorCota,
         }

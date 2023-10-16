@@ -10,7 +10,7 @@ export const createFundo = async (data) => {
       operacoes: {
         create: fundo.operacoes.map((operacao) => ({
           tipo: operacao.tipo,
-          data: operacao.data,
+          date: operacao.date,
           cotas: operacao.cotas,
           valorCota: operacao.valorCota,
         })),
@@ -49,7 +49,7 @@ export const updateFundo = async (id, data) => {
           operacoes: {
             create: fundo.operacoes.map((operacao) => ({
               tipo: operacao.tipo,
-              data: operacao.data,
+              date: operacao.date,
               cotas: operacao.cotas,
               valorCota: operacao.valorCota,
             })),

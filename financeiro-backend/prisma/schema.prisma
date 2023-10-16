@@ -25,7 +25,7 @@ model Fundo {
 model Operacao {
           id       Int    @id @default(autoincrement())
           tipo     TipoOperacao
-          data     DateTime
+          date     DateTime
           cotas    Float
           valorCota Float
           fundoId  Int
