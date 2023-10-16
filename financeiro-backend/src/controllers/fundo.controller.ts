@@ -24,7 +24,7 @@ export const get = async (req, res) => {
 
 export const getbyid = async(req,res) => {
     try{
-        const fundo = await getById(Number(req.params.id));
+        const fundo = await getById(req.params.razaoSocial, req.params.cnpj);
         res.status(200).send(fundo)
     } catch (e) {
         res.status(400).send(e);

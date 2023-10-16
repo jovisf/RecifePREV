@@ -27,10 +27,11 @@ export const getAll = async () => {
     return fundos;
 };
 
-export const getById = async (id) => {
+export const getById = async (razaoSocial, cnpj) => {
     const fundo = await prisma.fundo.findUnique({
         where:{
-            id
+            razaoSocial,
+            cnpj
         }
     })
     return fundo;

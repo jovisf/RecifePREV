@@ -22,8 +22,8 @@ export const Acao: React.FC = () => {
           .transform((originalValue, originalObject) => {
             return isNaN(originalValue) ? undefined : parseFloat(originalValue);
           })
-          .positive('O valor deve ser positivo') // Pode adicionar validações adicionais para números positivos aqui
-          .typeError('O valor deve ser um número válido'), // Mensagem de erro para quando não for um número
+          .positive('O valor deve ser positivo') 
+          .typeError('O valor deve ser um número válido'), 
         cota: yup
           .number()
           .required('Valor da cota é um campo obrigatório')
@@ -32,8 +32,8 @@ export const Acao: React.FC = () => {
           })
           .positive('O valor deve ser positivo') // Pode adicionar validações adicionais para números positivos aqui
           .typeError('O valor deve ser um número válido'), // Mensagem de erro para quando não for um número
-        data: yup.date().nullable(),
-        fundos: yup.string().required("O valor da razão social precisa ser válido")
+        date: yup.date().nullable(),
+        razaoSocial: yup.string().required("O valor da razão social precisa ser válido")
       });
     
     const { handleSubmit, formState: { errors}, control } = useForm(
@@ -42,8 +42,49 @@ export const Acao: React.FC = () => {
     });
 
 
+    const onSubmit = (data: any) => {
+        axios.get(`http://localhost:3001/fundo/${data.razaoSocial}/${data.cnpj}`)
+        .then(response => {
+            const resultado = response.data;
+            if (resultado === "" ){
+                const requestBody = {
+                    fundo: {
+                      cnpj: data.cnpj,
+                      razaoSocial: data.razaoSocial,
+                      operacoes: []
+                    }
+                  }
+                axios.post('http://localhost:3001/fundo', requestBody)
+                .then(response => {
+                console.log('Resposta da API:', response.data);
+                })          
+                .catch(error => {
+                console.error('Erro ao fazer a requisição:', error.message);
+                });
+            }
 
-    const onSubmit = (data: any) => console.log(data);
+            const fundoId = response.data.id
+            const requestBodyOperacao = {
+                    tipo: data.acoes,
+                    date:  data.date,
+                    cotas: data.cota,
+                    valorCota: data.valorCota
+                
+            }
+            axios.post(`http://localhost:3001/operacoes/${fundoId}`, requestBodyOperacao)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+               console.error('Erro ao fazer a requisição:', error.message);
+            });
+            
+        })
+        .catch(error => {
+        console.error('Erro na requisição:', error.message);
+        });
+
+    };
     
 
 
@@ -62,8 +103,8 @@ export const Acao: React.FC = () => {
             <Box component={'form'} onSubmit={handleSubmit(onSubmit)} sx={{width:'50%', mt:'2rem', backgroundColor:'#e5e8ed', padding:'2rem', display:'flex',justifyContent:'center', flexDirection:'column'}}>
                 <Typography component='h2'> Realize a sua ação</Typography>
                 <TextFields errors={errors} control={control} name='cnpj'label='Cnpj'></TextFields>
-                <AutocompleteFields errors={errors} control = {control} name="fundos"/>
-                <DataFields errors={errors} control= {control} name="data"/>
+                <AutocompleteFields errors={errors} control = {control} name="razaoSocial"/>
+                <DataFields errors={errors} control={control} name="date"/>
                 <SelectFields
                     errors={errors}
                     label="Ação"
