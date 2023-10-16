@@ -9,6 +9,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const Acao: React.FC = () => {
@@ -73,15 +75,34 @@ export const Acao: React.FC = () => {
             }
             axios.post(`http://localhost:3001/operacoes/${fundoId}`, requestBodyOperacao)
             .then(response => {
-                console.log(response)
+                toast.success('Operação realizada com sucesso!!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
             })
             .catch(error => {
-               console.error('Erro ao fazer a requisição:', error.message);
+                console.error('Erro ao fazer a requisição:', error.message);  
             });
             
         })
         .catch(error => {
         console.error('Erro na requisição:', error.message);
+        toast.error('Não foi possível realizar operação', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         });
 
     };
@@ -97,12 +118,26 @@ export const Acao: React.FC = () => {
                 alignItems:'center',
                 backgroundColor:'white',
                 width:'100%',
-                mb:'2rem'
+                mb:'2rem',
         }}
         >
-            <Box component={'form'} onSubmit={handleSubmit(onSubmit)} sx={{width:'50%', mt:'2rem', backgroundColor:'#e5e8ed', padding:'2rem', display:'flex',justifyContent:'center', flexDirection:'column'}}>
-                <Typography component='h2'> Realize a sua ação</Typography>
-                <TextFields errors={errors} control={control} name='cnpj'label='Cnpj'></TextFields>
+            <Box component={'form'} onSubmit={handleSubmit(onSubmit)} 
+                sx={{borderRadius: '25px', 
+                width:'50%',
+                mt:'2rem',
+                backgroundColor:'#e5e8ed',
+                padding:'2rem', 
+                display:'flex',
+                justifyContent:'center',
+                flexDirection:'column',
+                alignItems:'center',
+                '@media screen and (max-width: 768px)': {
+                    width: '70%', 
+                    flexDirection: 'column',  
+            }}}
+                >
+                <h2>Realize Sua Ação</h2>
+                <TextFields errors={errors} control={control}  name='cnpj'label='Cnpj'></TextFields>
                 <AutocompleteFields errors={errors} control = {control} name="razaoSocial"/>
                 <DataFields errors={errors} control={control} name="date"/>
                 <SelectFields
@@ -114,6 +149,18 @@ export const Acao: React.FC = () => {
                 <TextFields errors={errors} control={control} name='cota' label='Quantidade de Cotas'></TextFields>
                 <TextFields  errors={errors} control={control} name='valorCota'label='Valor Cota' ></TextFields>
                 <Button type="submit" variant="contained" sx={{color:'currentColor',  width: '80%', border: '1px solid rgba(0, 0, 0, 0.5)'}}>Enviar</Button>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             </Box>            
         </Box>        
     )

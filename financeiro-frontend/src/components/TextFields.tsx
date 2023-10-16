@@ -16,7 +16,7 @@ interface TextFieldsProps {
   
   const TextFields: React.FC<TextFieldsProps> = (props) => {
     return (
-      <FormControl fullWidth sx={{ mb: '1rem' , width: '80%', mr:'1rem' }}>
+      <FormControl fullWidth sx={{ mb: '1rem' , width: '80%', mr:'1rem'}}>
         <Controller
           name={props.name}
           control={props.control}
