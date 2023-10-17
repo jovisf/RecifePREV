@@ -20,6 +20,9 @@ export const CreditosContainer = styled.div`
   p {
     font-size: 20px;
     color: #827d7d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   @media screen and (max-width: 768px) {
     flex-direction: column;
@@ -50,7 +53,8 @@ export const Line = styled.hr`
 export const Icons = styled.ul`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   list-style: none;
   align-content: center;
+  transform: scale(0.8);
 `

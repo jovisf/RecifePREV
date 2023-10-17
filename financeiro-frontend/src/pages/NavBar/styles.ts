@@ -14,6 +14,7 @@ export const NavbarContainer = styled.nav`
     flex-direction: column;
     padding: 10px 0;
     justify-content: center;
+    height: 25vh;
   }
 `
 
@@ -21,6 +22,10 @@ export const Logo = styled.div`
   img {
     max-width: 60%;
     margin-left: 3rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-top:30px;
   }
 `
 
@@ -36,7 +41,7 @@ export const NavbarItems = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: row;
     gap: 20px;
-    margin-top: 10px;
+    font-size: 20px;
   }
 
   ul {

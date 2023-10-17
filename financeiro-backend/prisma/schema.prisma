@@ -25,10 +25,18 @@ model Fundo {
 model Operacao {
           id       Int    @id @default(autoincrement())
           tipo     TipoOperacao
-          data     DateTime
+          date     DateTime
           cotas    Float
           valorCota Float
           fundoId  Int
           fundo    Fundo  @relation(fields: [fundoId], references: [id])
         }
 
+model Cota {
+          id Int      @id @default(autoincrement())
+          tp_fundo String
+          cnpj_fundo String   
+          dt_comptc DateTime 
+          vl_quota Float
+          nr_cotst Int
+        }

@@ -10,7 +10,7 @@ export const createFundo = async (data) => {
       operacoes: {
         create: fundo.operacoes.map((operacao) => ({
           tipo: operacao.tipo,
-          data: operacao.data,
+          date: operacao.date,
           cotas: operacao.cotas,
           valorCota: operacao.valorCota,
         })),
@@ -27,10 +27,11 @@ export const getAll = async () => {
     return fundos;
 };
 
-export const getById = async (id) => {
+export const getById = async (razaoSocial, cnpj) => {
     const fundo = await prisma.fundo.findUnique({
         where:{
-            id
+            razaoSocial,
+            cnpj
         }
     })
     return fundo;
@@ -48,7 +49,7 @@ export const updateFundo = async (id, data) => {
           operacoes: {
             create: fundo.operacoes.map((operacao) => ({
               tipo: operacao.tipo,
-              data: operacao.data,
+              date: operacao.date,
               cotas: operacao.cotas,
               valorCota: operacao.valorCota,
             })),
