@@ -27,3 +27,15 @@ CREATE UNIQUE INDEX "Fundo_cnpj_key" ON "Fundo"("cnpj");
 
 -- AddForeignKey
 ALTER TABLE "Operacao" ADD CONSTRAINT "Operacao_fundoId_fkey" FOREIGN KEY ("fundoId") REFERENCES "Fundo"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- CreateTable
+CREATE TABLE "Cota" (
+    "id" SERIAL NOT NULL,
+    "tp_fundo" TEXT NOT NULL,
+    "cnpj_fundo" TEXT NOT NULL,
+    "dt_comptc" TIMESTAMP(3) NOT NULL,
+    "vl_quota" DOUBLE PRECISION NOT NULL,
+    "nr_cotst" INTEGER NOT NULL,
+
+    CONSTRAINT "Fundos_pkey" PRIMARY KEY ("id")
+);

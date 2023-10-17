@@ -32,3 +32,11 @@ model Operacao {
           fundo    Fundo  @relation(fields: [fundoId], references: [id])
         }
 
+model Cota {
+          id Int      @id @default(autoincrement())
+          tp_fundo String
+          cnpj_fundo String   
+          dt_comptc DateTime 
+          vl_quota Float
+          nr_cotst Int
+        }
