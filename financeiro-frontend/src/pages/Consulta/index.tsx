@@ -7,16 +7,18 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 
 export const Consulta: React.FC = () => {
 
-    const [quantidadeCota, setquantidadeCota] = useState(null);
-    const [valorMedio, setvalorMedio] = useState(null);
+    const [quantidadeCota, setQuantidadeCota] = useState(null);
+    const [valorMedio, setValorMedio] = useState(null);
     const [cnpj, setcnpj] = useState(null);
-    const [razaoSocial, setrazaoSocial] = useState(null);
+    const [razaoSocial, setRazaoSocial] = useState(null);
+    const [valorUnitario, setValorUnitario] = useState(null)
+    const [valorRetorno, setValorRetorno] = useState(null)
+    const [saldo, setSaldo] = useState(null)
 
     const schema = yup.object({
         cnpj: yup.string().required('Cnjp é um campo obrigatório'),
@@ -31,15 +33,18 @@ export const Consulta: React.FC = () => {
     
 
     const onSubmit = (data: any) => {
-        setrazaoSocial(data.razaoSocial)
+        setRazaoSocial(data.razaoSocial)
         setcnpj(data.cnpj)
         axios.get(`http://localhost:3001/fundo/${data.razaoSocial}/${data.cnpj}`)
         .then(response => {
             const resultado = response.data;
             axios.get(`http://localhost:3001/consulta/${resultado.id}`)
             .then(consulta => {
-                setquantidadeCota(consulta.data.quantidadeCotas);
-                setvalorMedio(consulta.data.valorMedio)
+                setQuantidadeCota(consulta.data.quantidadeCotas);
+                setValorMedio(consulta.data.valorMedio)
+                setValorUnitario(consulta.data.valorUnitario)
+                setValorRetorno(consulta.data.retorno)
+                setSaldo(consulta.data.saldo)
             })
         })
         .catch(error => {
@@ -71,7 +76,7 @@ export const Consulta: React.FC = () => {
                     mt:0
             }}}>
                 <TextFields errors={errors} control={control}  name='cnpj'label='Cnpj'></TextFields>
-                <AutocompleteFields errors={errors} control = {control} name="razaoSocial"/>
+                <TextFields errors={errors} control={control}  name='razaoSocial'label='Razão Social'></TextFields>
                 <DataFields errors={errors} control={control} name="date"/>
                 <Button type="submit" variant="contained" sx={{color:'currentColor',  width: '80%', border: '1px solid rgba(0, 0, 0, 0.5)'}}>Enviar</Button>
                 
@@ -100,7 +105,7 @@ export const Consulta: React.FC = () => {
                                 </Box>
                                 <Box sx={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
                                     <h3 style={{flexWrap: 'nowrap'}}>Valor Unitário Cota:</h3>
-                                    <p>3</p>
+                                    <p>{valorUnitario}</p>
                                 </Box>
                                 <Box sx={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
                                     <h3 style={{flexWrap: 'nowrap'}}>Número de cotas:</h3>
@@ -112,11 +117,11 @@ export const Consulta: React.FC = () => {
                                 </Box>
                                 <Box sx={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
                                     <h3 style={{flexWrap: 'nowrap'}}>Retorno da operação</h3>
-                                    <p>2</p>
+                                    <p>{valorRetorno}</p>
                                 </Box>
                                 <Box sx={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
                                     <h3 style={{flexWrap: 'nowrap'}}>Saldo de aplicação no Fundo:</h3>
-                                    <p>1</p>
+                                    <p>{saldo}</p>
                                 </Box>
                             
                             </Box>

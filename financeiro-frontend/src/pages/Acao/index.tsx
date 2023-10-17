@@ -45,6 +45,7 @@ export const Acao: React.FC = () => {
 
 
     const onSubmit = (data: any) => {
+        console.log('ta entrando aqui')
         axios.get(`http://localhost:3001/fundo/${data.razaoSocial}/${data.cnpj}`)
         .then(response => {
             const resultado = response.data;
@@ -64,8 +65,9 @@ export const Acao: React.FC = () => {
                 console.error('Erro ao fazer a requisição:', error.message);
                 });
             }
-
+            
             const fundoId = response.data.id
+            console.log(fundoId)
             const requestBodyOperacao = {
                     tipo: data.acoes,
                     date:  data.date,
@@ -138,7 +140,7 @@ export const Acao: React.FC = () => {
                 >
                 <h2>Realize Sua Ação</h2>
                 <TextFields errors={errors} control={control}  name='cnpj'label='Cnpj'></TextFields>
-                <AutocompleteFields errors={errors} control = {control} name="razaoSocial"/>
+                <TextFields errors={errors} control={control}  name='razaoSocial'label='Razão Social'></TextFields>
                 <DataFields errors={errors} control={control} name="date"/>
                 <SelectFields
                     errors={errors}
